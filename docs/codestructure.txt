@@ -1,0 +1,28 @@
+├── README.md
+├── app
+│   ├── controllers
+│   │   └── HomeController.scala
+│   └── views
+│       ├── index.scala.html
+│       └── main.scala.html
+├── build.sbt
+├── build.sc
+├── conf
+│   ├── application.conf
+│   ├── logback.xml
+│   ├── messages
+│   └── routes
+├── out.txt
+├── project
+│   ├── build.properties
+│   └── plugins.sbt
+├── public
+│   ├── images
+│   │   └── favicon.png
+│   ├── javascripts
+│   │   └── main.js
+│   └── stylesheets
+│       └── main.css
+└── test
+    └── controllers
+        └── HomeControllerSpec.scala
