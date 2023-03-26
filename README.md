@@ -82,7 +82,7 @@ target                   → Generated stuff
  └ web                   → Compiled web assets
 test                     → source folder for unit or functional tests
 ```
-For more info: [Anatomy]([https://](https://www.playframework.com/documentation/2.8.x/Anatomy))
+For more info: [Anatomy](https://www.playframework.com/documentation/2.8.x/Anatomy)
 
 # How to use scala with sbt tool
 ## Run the code
