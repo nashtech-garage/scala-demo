@@ -14,6 +14,9 @@ class UserTable(tag: Tag) extends Table[User](tag, Some("scalademo"), "users") {
   /** The email column */
   def email = column[String]("email", O.Unique)
 
+  /** The role column */
+  def role = column[String]("role")
+
   /** The last name column */
   def lastName = column[String]("lastname")
 
@@ -26,5 +29,5 @@ class UserTable(tag: Tag) extends Table[User](tag, Some("scalademo"), "users") {
    * In this case, we are simply passing the id, name, email and password parameters to the User case classes
    * apply and unapply methods.
    */
-  def * = (id, email, name, lastName, password) <> ((User.apply _).tupled, User.unapply)
+  def * = (id, email, role, name, lastName, password) <> ((User.apply _).tupled, User.unapply)
 }

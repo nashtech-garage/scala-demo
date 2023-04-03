@@ -4,6 +4,7 @@ import javax.inject.Inject
 import com.mohiva.play.silhouette.api.actions.SecuredErrorHandler
 import play.api
 import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.libs.json.JsString
 import play.api.mvc
 import play.api.mvc.RequestHeader
 import play.api.mvc.Results._
@@ -26,8 +27,8 @@ class CustomSecuredErrorHandler @Inject() (val messagesApi: MessagesApi)
    * @param request The request header.
    * @return The result to send to the client.
    */
-  override def onNotAuthenticated(implicit request: RequestHeader): Future[mvc.Results.Status] = {
-    Future.successful(Unauthorized)
+  override def onNotAuthenticated(implicit request: RequestHeader): Future[mvc.Result] = {
+    Future.successful(Unauthorized(JsString("Authentication required to perform this operation")))
   }
 
   /**
@@ -38,7 +39,7 @@ class CustomSecuredErrorHandler @Inject() (val messagesApi: MessagesApi)
    * @param request The request header.
    * @return The result to send to the client.
    */
-  override def onNotAuthorized(implicit request: RequestHeader): Future[api.mvc.Results.Status] = {
-    Future.successful(Forbidden)
+  override def onNotAuthorized(implicit request: RequestHeader): Future[api.mvc.Result] = {
+    Future.successful(Forbidden(JsString("You are not authorized to perform this operation")))
   }
 }

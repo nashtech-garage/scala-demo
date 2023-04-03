@@ -14,16 +14,20 @@ import scala.concurrent.Future
  */
 case class WithProvider[A <: Authenticator](provider: String) extends Authorization[User, A] {
 
-  /**
-   * Indicates if a user is authorized to access an action.
-   *
-   * @param user The usr object.
-   * @param authenticator The authenticator instance.
-   * @param request The current request.
-   * @tparam B The type of the request body.
-   * @return True if the user is authorized, false otherwise.
-   */
   override def isAuthorized[B](user: User, authenticator: A)(implicit request: Request[B]): Future[Boolean] = {
     Future.successful(user.loginInfo.providerID == provider)
+  }
+}
+
+/**
+ * Only allows those users that have at least a role of the selected.
+ * Admin role is always allowed.
+ * Ex: WithRole("Viewer", "Creator") => only users with roles "User" OR "Creator" (or "Admin") are allowed.
+ * Roles: "User" | "Creator" | "Contributor" |  "Admin"
+ */
+case class WithRole[A <: Authenticator](anyOf: String*) extends Authorization[User, A] {
+
+  override def isAuthorized[B](user: User, authenticator: A)(implicit request: Request[B]): Future[Boolean] = {
+    Future.successful(anyOf.contains(user.role) || user.role.equals("Admin"))
   }
 }

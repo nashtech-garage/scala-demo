@@ -8,7 +8,7 @@ import com.mohiva.play.silhouette.password.BCryptSha256PasswordHasher
 /**
  * The User class
  */
-case class User(id: Option[Long], email: String, name: String, lastName: String, password: Option[String] = None)
+case class User(id: Option[Long], email: String, role: String, name: String, lastName: String, password: Option[String] = None)
   extends Identity {
 
   /**
