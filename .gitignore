@@ -13,7 +13,6 @@
 /bin
 target
 gulpopts.json
-logback.xml
 logback-access.xml
 browserify-cache*.json
 .DS_Store
