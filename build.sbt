@@ -33,6 +33,8 @@ val playSilhouetteVersion = "6.1.1"
 val slickVersion = "3.3.3"
 val playSlickVersion = "5.0.0"
 val akkaVersion = "2.6.17"
+val enumeratumVersion = "1.7.0"
+val enumeratumSlickVersion = "1.5.16"
 
 val appDependencies = Seq(
   guice, // DI library
@@ -56,12 +58,16 @@ val appDependencies = Seq(
   "net.codingwell" %% "scala-guice" % "4.2.11", // Scala extensions for Google Guice, Allows binding via type parameters
   "io.lemonlabs" %% "scala-uri" % "4.0.3",
 
-
   // For JWT Authentication
   "com.mohiva" %% "play-silhouette" % playSilhouetteVersion,
   "com.mohiva" %% "play-silhouette-password-bcrypt" % playSilhouetteVersion,
   "com.mohiva" %% "play-silhouette-persistence" % playSilhouetteVersion,
   "com.mohiva" %% "play-silhouette-crypto-jca" % playSilhouetteVersion,
+
+  "com.beachape" %% "enumeratum" % enumeratumVersion,
+  "com.beachape" %% "enumeratum-play" % enumeratumVersion,
+  "com.beachape" %% "enumeratum-play-json" % enumeratumVersion,
+  "com.beachape" %% "enumeratum-slick" % enumeratumSlickVersion,
 
 //  "com.github.tminglei" %% "slick-pg" % "0.18.1",
 //  "com.github.tminglei" %% "slick-pg_play-json" % "0.18.1",
@@ -81,6 +87,7 @@ def excludeBadTransitiveDependencies(mod: ModuleID): ModuleID = mod.excludeAll(
 resolvers += Resolver.jcenterRepo
 resolvers += "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
 
+//resolvers += ("Local Maven Repository" at "file:///" + Path.userHome.absolutePath + "/.m2/repository")
 //resolvers += Resolver.jcenterRepo
 //resolvers += Resolver.bintrayRepo("scalaz", "releases")
 //resolvers ++= Resolver.sonatypeOssRepos("releases")

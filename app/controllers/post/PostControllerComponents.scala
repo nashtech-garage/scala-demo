@@ -4,7 +4,7 @@ import play.api.http.{FileMimeTypes, HttpVerbs}
 import play.api.i18n.{Langs, MessagesApi}
 import play.api.mvc._
 import play.api.{Logger, MarkerContext}
-import services.{PostService, UserService}
+import services.{ExternalPostService, PostService, UserService}
 import utils.logging.RequestMarkerContext
 
 import javax.inject.Inject
@@ -64,7 +64,7 @@ class PostRequest[A](request: Request[A], val messagesApi: MessagesApi)
  * This is a good way to minimize the surface area exposed to the controller, so the
  * controller only has to have one thing injected.
  */
-case class PostControllerComponents @Inject()(
+case class PostControllerComponents @Inject()(externalPostService: ExternalPostService,
 //                                               postActionBuilder: PostActionBuilder,
                                               postService: PostService,
                                               userService: UserService,

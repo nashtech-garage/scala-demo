@@ -3,14 +3,18 @@
 # ~~~~
 
 # Authn & Authz Endpoints
-GET         /unsecured                       controllers.auth.UnsecuredResourceController.index
+GET         /unsecured                         controllers.auth.UnsecuredResourceController.index
 
-POST        /signUp                          controllers.auth.AuthController.signUp
+POST        /signUp                            controllers.auth.AuthController.signUp
 
-POST        /signIn                          controllers.auth.AuthController.signIn
+POST        /signIn                            controllers.auth.AuthController.signIn
 
 # Post Endpoints mapped one for all (redirected by Router)
-->          /v1/posts                        controllers.post.PostRouter
+->          /v1/posts                          controllers.post.PostRouter
+
+# Routing to external posts endpoints
+GET          /v1/external/posts                controllers.post.PostController.getAllExternal
+POST         /v1/external/posts                controllers.post.PostController.createExternal
 
 # Post Endpoints mapped one-by-one
 # GET        /v1/posts                         controllers.post.PostController.getAll
@@ -21,5 +25,5 @@ POST        /signIn                          controllers.auth.AuthController.sig
 
 
 # Map static resources from the /public folder to the /assets URL path
-#GET         /assets/*file                    controllers.Assets.versioned(file)
-#->          /webjars                         webjars.Routes
+#GET         /assets/*file                     controllers.Assets.versioned(file)
+#->          /webjars                          webjars.Routes

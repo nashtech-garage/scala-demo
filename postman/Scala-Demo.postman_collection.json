@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Vang\",\n    \"email\": \"vangdov@nashtechglobal.com\",\n    \"lastName\": \"DoVan\",\n    \"password\": \"VangDo123@\"\n}",
+					"raw": "{\n    \"name\": \"Contributor\",\n    \"email\": \"contributor@nashtechglobal.com\",\n    \"role\": \"Contributor\",\n    \"lastName\": \"Test\",\n    \"password\": \"VangDo123@\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -157,7 +157,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"author\": 1,\n    \"title\": \"Vang's Post 1\",\n    \"content\": \"Vang's Post 1 Content\",\n    \"description\": \"Vang's Post 1 description\"\n}",
+					"raw": "{\n    \"author\": 2,\n    \"title\": \"User's Post 2\",\n    \"content\": \"User's Post 2 Content\",\n    \"description\": \"User's Post 2 description\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -183,7 +183,13 @@
 			"name": "http://localhost:8080/v1/posts/1",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Auth",
+						"value": "{{X-Auth}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:8080/v1/posts/1",
 					"protocol": "http",
@@ -195,6 +201,105 @@
 						"v1",
 						"posts",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/v1/posts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Auth",
+						"value": "{{X-Auth}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/external/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"external",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://vang-scala-demo.free.beeceptor.com/posts",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "username",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://vang-scala-demo.free.beeceptor.com/posts",
+					"protocol": "https",
+					"host": [
+						"vang-scala-demo",
+						"free",
+						"beeceptor",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/v1/external/posts",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth",
+						"value": "{{X-Auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 109,\n    \"author\": 999,\n    \"title\": \"External Post 2\",\n    \"content\": \"External Post 2 Content\",\n    \"description\": \"External Post 2 description\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/external/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"external",
+						"posts"
 					]
 				}
 			},
