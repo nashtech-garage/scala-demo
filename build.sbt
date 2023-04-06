@@ -32,7 +32,7 @@ lazy val root = (project in file("."))
 val playSilhouetteVersion = "6.1.1"
 val slickVersion = "3.3.3"
 val playSlickVersion = "5.0.0"
-val akkaVersion = "2.6.17"
+val akkaVersion = "2.6.20"
 val enumeratumVersion = "1.7.0"
 val enumeratumSlickVersion = "1.5.16"
 
@@ -45,7 +45,7 @@ val appDependencies = Seq(
   "com.typesafe.slick" %% "slick" % slickVersion,
   "com.typesafe.play" %% "play-slick" % playSlickVersion,
   "com.typesafe.play" %% "play-slick-evolutions" % playSlickVersion,
-  "org.postgresql" % "postgresql" % "42.2.10",
+  "org.postgresql" % "postgresql" % "42.2.10", // PostgreSQL JDBC Driver
 
   "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
   "com.typesafe.akka" %% "akka-http" % "10.1.15",
@@ -69,18 +69,23 @@ val appDependencies = Seq(
   "com.beachape" %% "enumeratum-play-json" % enumeratumVersion,
   "com.beachape" %% "enumeratum-slick" % enumeratumSlickVersion,
 
-//  "com.github.tminglei" %% "slick-pg" % "0.18.1",
-//  "com.github.tminglei" %% "slick-pg_play-json" % "0.18.1",
+  // Slick extensions for PostgreSQL, to support a series of pg data types and related operators/functions.
+  // https://github.com/tminglei/slick-pg
+  //  "com.github.tminglei" %% "slick-pg" % "0.18.1",
+  //  "com.github.tminglei" %% "slick-pg_play-json" % "0.18.1",
 )
 
 val testDependencies = Seq(
   "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0",
+  "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
+  "com.opentable.components" % "otj-pg-embedded" % "0.13.4", // https://github.com/opentable/otj-pg-embedded
+//  "com.h2database" % "h2" % "2.1.210" // H2 is an embeddable RDBMS written in Java.
+  "org.mockito" % "mockito-core" % "4.0.0",
+  "org.mockito" % "mockito-scala_2.13" % "1.17.14"
 ).map(_ % Test)
 
 def excludeBadTransitiveDependencies(mod: ModuleID): ModuleID = mod.excludeAll(
   ExclusionRule(organization = "commons-logging"),
-
-  // Tika pulls in slf4j-log4j12
   ExclusionRule(organization = "org.slf4j", name = "slf4j-log4j12")
 )
 

@@ -23,14 +23,15 @@ case class PostFormInput(author: Long, title: String, content: String, descripti
 /**
  * Takes HTTP requests and produces JSON.
  */
-class PostController @Inject() (cc: PostControllerComponents, silhouette: Silhouette[JWTEnvironment])
+class PostController @Inject() (cc: ControllerComponents,
+                                postService: PostService,
+                                extPostService: ExternalPostService,
+                                userService: UserService,
+                                silhouette: Silhouette[JWTEnvironment])
                                (implicit ec: ExecutionContext)
   extends AbstractController(cc) with RequestMarkerContext {
 
   def SecuredAction: SecuredActionBuilder[JWTEnvironment, AnyContent] = silhouette.SecuredAction
-  def postService: PostService = cc.postService
-  def exPostService: ExternalPostService = cc.externalPostService
-  def userService: UserService = cc.userService
 
   private val logger = Logger(getClass)
 
@@ -90,7 +91,7 @@ class PostController @Inject() (cc: PostControllerComponents, silhouette: Silhou
       logger.trace("getAll External Posts")
 
       // try/catch Future exception with transform
-      exPostService.listAll().transform {
+      extPostService.listAll().transform {
         case Failure(exception) => handleExternalError(exception)
         case Success(posts) => Try(Ok(Json.toJson(posts.map(post => PostResource.fromPost(post)))))
       }
@@ -108,7 +109,7 @@ class PostController @Inject() (cc: PostControllerComponents, silhouette: Silhou
         // create a post from given form input
         val post = Post(Some(999L), input.author, input.title, input.content, LocalDateTime.now(), input.description)
 
-        exPostService.save(post).transform {
+        extPostService.save(post).transform {
           case Failure(exception) => handleExternalError(exception)
           case Success(post) => Try(Created(Json.toJson(PostResource.fromPost(post))))
         }
