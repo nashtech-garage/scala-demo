@@ -43,6 +43,14 @@ trait UserDao {
   def save(user: User): Future[User]
 
   /**
+   * Saves all users.
+   *
+   * @param list The users to save.
+   * @return The saved users.
+   */
+  def saveAll(list: Seq[User]): Future[Seq[User]]
+
+  /**
    * Updates a user.
    *
    * @param user The user to update.
@@ -84,6 +92,10 @@ class UserDaoImpl @Inject()(daoRunner: DaoRunner)(implicit ec: DbExecutionContex
 
   override def save(user: User): Future[User] = daoRunner.run {
     users returning users += user
+  }
+
+  override def saveAll(list: Seq[User]): Future[Seq[User]] = daoRunner.run {
+    (users ++= list).map(_ => list)
   }
 
   override def update(user: User): Future[User] = daoRunner.run {

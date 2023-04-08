@@ -53,6 +53,8 @@ class PostControllerSpec extends PlaySpecification with MockitoSugar with ScalaF
     }
   }
 
+  // Same for remaining methods
+
   private def verifyPost(actual: PostResource, expected: Post): Unit = {
     actual.id mustEqual expected.id.get
     actual.author mustEqual expected.author

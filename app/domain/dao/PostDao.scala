@@ -37,6 +37,14 @@ trait PostDao {
   def save(post: Post): Future[Post]
 
   /**
+   * Saves all posts.
+   *
+   * @param list The posts to save.
+   * @return The saved posts.
+   */
+  def saveAll(list: Seq[Post]): Future[Seq[Post]]
+
+  /**
    * Updates a post.
    *
    * @param post The post to update.
@@ -74,6 +82,10 @@ class PostDaoImpl @Inject()(daoRunner: DaoRunner)(implicit ec: DbExecutionContex
 
   override def save(post: Post): Future[Post] = daoRunner.run {
     posts returning posts += post
+  }
+
+  override def saveAll(list: Seq[Post]): Future[Seq[Post]] = daoRunner.run {
+    (posts ++= list).map(_ => list)
   }
 
   override def update(post: Post): Future[Post] = daoRunner.run {
