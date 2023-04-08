@@ -4,11 +4,12 @@ import play.api.routing.Router.Routes
 import play.api.routing.SimpleRouter
 import play.api.routing.sird._
 
-import javax.inject.Inject
+import javax.inject.{Inject, Singleton}
 
 /**
  * Routes and URLs to the PostResource controller.
  */
+@Singleton
 class PostRouter @Inject() (controller: PostController) extends SimpleRouter {
 
   override def routes: Routes = {

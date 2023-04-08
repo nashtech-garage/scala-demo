@@ -26,8 +26,7 @@ class RequestHandler @Inject() (
     configuration,
     filters) {
 
-  override def handlerForRequest(
-    request: RequestHeader): (RequestHeader, Handler) = {
+  override def handlerForRequest(request: RequestHeader): (RequestHeader, Handler) = {
     super.handlerForRequest {
       // ensures that REST API does not need a trailing "/"
       if (isREST(request)) {

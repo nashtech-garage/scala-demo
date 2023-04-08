@@ -28,6 +28,26 @@ lazy val root = (project in file("."))
     PlayKeys.devSettings := Seq("play.server.http.port" -> "8080")
   )
 
+// Separated project for running integration test
+lazy val integration = (project in file("it"))
+  .dependsOn(root, root % "test->test") // get access to the common test classes
+  .settings(
+    name := "integration-test",
+    libraryDependencies ++= testDependencies.map(excludeBadTransitiveDependencies),
+    sourceDirectory := baseDirectory.value,
+    Test / testOptions ++= Seq(
+      Tests.Argument(TestFrameworks.ScalaTest, "-o"), // console out
+      Tests.Argument(TestFrameworks.ScalaTest, "-h", s"${target.value}/test-html")
+    ),
+    Test / test := (Test / test).dependsOn(root / Assets / packageBin).value,
+    // Forking changes the working dir which breaks where we look for things, so don't fork for now.
+    // May be able to fix some other way by updating ForkOptions.
+    Test / fork := false,
+    Test / parallelExecution := false,
+    // Make assets available so they have styles and scripts
+    Test / managedClasspath += (root / Assets / packageBin).value,
+  )
+
 // Dependencies
 val playSilhouetteVersion = "6.1.1"
 val slickVersion = "3.3.3"
@@ -76,12 +96,13 @@ val appDependencies = Seq(
 )
 
 val testDependencies = Seq(
+  specs2,
   "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0",
   "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
   "com.opentable.components" % "otj-pg-embedded" % "0.13.4", // https://github.com/opentable/otj-pg-embedded
-//  "com.h2database" % "h2" % "2.1.210" // H2 is an embeddable RDBMS written in Java.
   "org.mockito" % "mockito-core" % "4.0.0",
-  "org.mockito" % "mockito-scala_2.13" % "1.17.14"
+  "org.mockito" % "mockito-scala_2.13" % "1.17.14",
+  "com.mohiva" %% "play-silhouette-testkit" % playSilhouetteVersion,
 ).map(_ % Test)
 
 def excludeBadTransitiveDependencies(mod: ModuleID): ModuleID = mod.excludeAll(
@@ -93,7 +114,6 @@ resolvers += Resolver.jcenterRepo
 resolvers += "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
 
 //resolvers += ("Local Maven Repository" at "file:///" + Path.userHome.absolutePath + "/.m2/repository")
-//resolvers += Resolver.jcenterRepo
 //resolvers += Resolver.bintrayRepo("scalaz", "releases")
 //resolvers ++= Resolver.sonatypeOssRepos("releases")
 //resolvers += "Atlassian's Maven Public Repository" at "https://packages.atlassian.com/maven-public/"
