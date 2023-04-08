@@ -2,12 +2,12 @@ version: '3'
 
 services:
   tomcat:
-    build: ./docker
+    build: ./
     container_name: scalademo-tomcat
     ports:
       - "8080:8080"
     volumes:
-      - ./docker/data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/conf:/etc/letsencrypt
     depends_on:
       - db
     networks:
@@ -17,8 +17,8 @@ services:
     image: "nginx:1.15-alpine"
     restart: unless-stopped
     volumes:
-      - ./docker/data/nginx:/etc/nginx/conf.d
-      - ./docker/data/certbot/conf:/etc/letsencrypt
+      - ./data/nginx:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
     ports:
       - "80:80"
       - "443:443"
@@ -33,13 +33,13 @@ services:
     restart: unless-stopped
     ports:
       - "5432:5432" # For connecting to the database for local management
-    command: postgres -c config_file=/etc/postgresql.conf
+    #command: postgres -c config_file=/etc/postgresql.conf
     volumes:
       - postgres:/var/lib/postgresql/data
-      - ./docker/conf/postgresql/postgresql.conf:/etc/postgresql.conf
+      - ./conf/postgresql/postgresql.conf:/etc/postgresql.conf
     environment:
       POSTGRES_USER: scalademo
-      POSTGRES_PASSWORD: Your password here@
+      POSTGRES_PASSWORD: scalademo
       POSTGRES_DB: scalademo
       PGDATA: /var/lib/postgresql/data/pgdata
     networks:
