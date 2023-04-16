@@ -103,6 +103,7 @@ val testDependencies = Seq(
   "org.mockito" % "mockito-core" % "4.0.0",
   "org.mockito" % "mockito-scala_2.13" % "1.17.14",
   "com.mohiva" %% "play-silhouette-testkit" % playSilhouetteVersion,
+  "org.pegdown" % "pegdown" % "1.5.0"
 ).map(_ % Test)
 
 def excludeBadTransitiveDependencies(mod: ModuleID): ModuleID = mod.excludeAll(

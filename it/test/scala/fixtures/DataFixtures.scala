@@ -1,6 +1,6 @@
 package fixtures
 
-import com.mohiva.play.silhouette.password.{BCryptSha256PasswordHasher}
+import com.mohiva.play.silhouette.password.BCryptSha256PasswordHasher
 import domain.dao.{PostDao, UserDao}
 import domain.models.{Post, User}
 import org.scalatestplus.play.PlaySpec

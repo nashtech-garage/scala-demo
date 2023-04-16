@@ -32,7 +32,7 @@ class PostIntegrationSpec extends DataFixtures with MockitoSugar with ScalaFutur
 
       // login to get access token
       val loginRes: WSResponse = await(WsTestClient.wsUrl("/signIn").post(Json.toJson(loginBody)))
-      val accessToken = loginRes.header(authHeaderKey)
+      val accessToken: Option[String] = loginRes.header(authHeaderKey)
       accessToken.isEmpty mustBe false
 
       // Execute test and then extract result
@@ -44,7 +44,7 @@ class PostIntegrationSpec extends DataFixtures with MockitoSugar with ScalaFutur
 
       // verify result after test
       getPostRes.status mustEqual 200
-      val actualPost = getPostRes.body[JsValue].as[PostResource]
+      val actualPost: PostResource = getPostRes.body[JsValue].as[PostResource]
       verifyPost(actualPost, post)
     }
   }
