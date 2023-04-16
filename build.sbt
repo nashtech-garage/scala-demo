@@ -1,3 +1,4 @@
+import com.typesafe.sbt.packager.docker.{Cmd, ExecCmd}
 import sbt.Keys._
 
 ThisBuild / version := "1.0-SNAPSHOT"
@@ -121,3 +122,26 @@ resolvers += "Sonatype snapshots" at "https://oss.sonatype.org/content/repositor
 //resolvers += "JCenter repo" at "https://packages.atlassian.com/maven-public/"
 //resolvers += ("Local Maven Repository" at "file:///" + Path.userHome.absolutePath + "/.m2/repository")
 //resolvers += "SBT plugins" at "https://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/"
+
+Universal / javaOptions ++= Seq(
+  // JVM memory tuning
+  "-J-Xmx1024m",
+  "-J-Xms128m",
+  // Since play uses separate pidfile we have to provide it with a proper path
+  // name of the pid file must be play.pid
+  s"-Dpidfile.path=/opt/docker/${packageName.value}/run/play.pid"
+)
+
+// use ++= to merge a sequence with an existing sequence
+dockerCommands ++= Seq(
+  Cmd("USER", "root"),
+  ExecCmd("RUN", "mkdir", "-p", s"/opt/docker/${packageName.value}"),
+  ExecCmd("RUN", "mkdir", "-p", s"/opt/docker/${packageName.value}/run"),
+  ExecCmd("RUN", "chown", "-R", "daemon:daemon", s"/opt/docker/${packageName.value}/"),
+  ExecCmd("RUN", "mkdir", "-p", "/opt/docker/logs/"),
+  ExecCmd("RUN", "chmod", "+w", "-R", "/opt/docker/logs/")
+)
+
+// exposing the play ports
+Docker / dockerExposedPorts := Seq(8080, 8443)
+Docker / dockerExposedVolumes := Seq("/opt/docker/logs")
