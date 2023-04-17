@@ -60,9 +60,9 @@
    └── target
 ```
 
-### Running
+### Getting Started
 
-#### 1. Setup `PostgreSQL`
+#### 1. Setup `PostgreSQL` Database
 You can install PostgreSQL on your local machine or running the docker compose in the `/docker/database` folder
 to get PostgreSQL ready.
 
@@ -75,6 +75,21 @@ Once you have sbt installed, the following at the command prompt will start up P
 ```
 
 Play will start up on the HTTP port at <http://localhost:8080/>.   You don't need to deploy or reload anything -- changing any source code while the server is running will automatically recompile and hot-reload the application on the next HTTP request.
+
+#### 3. Run Unit Tests
+```bash
+./sbt clean test
+```
+
+or To generate code coverage report with SCoverage
+```bash
+./sbt clean coverage test coverageReport
+```
+
+#### 4. Run Integration Tests
+```bash
+./sbt clean integration/test
+```
 
 ### Usage
 _Ref: Postman collection at `postman` folder_
