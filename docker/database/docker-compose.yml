@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  db:
+    image: "postgres:11-alpine"
+    container_name: scalademo-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432" # For connecting to the database for local management
+    command: postgres -c config_file=/etc/postgresql.conf
+    volumes:
+      - scala-postgres:/var/lib/postgresql/data
+      - ./postgresql/postgresql.conf:/etc/postgresql.conf
+    environment:
+      POSTGRES_USER: scalademo
+      POSTGRES_PASSWORD: Your password here
+      POSTGRES_DB: scalademo
+      PGDATA: /var/lib/postgresql/data/pgdata
+    networks:
+      - scalademo-internal-net
+
+volumes:
+  scala-postgres:
+
+networks:
+  scalademo-internal-net:
+

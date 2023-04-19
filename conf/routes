@@ -1,0 +1,29 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Authn & Authz Endpoints
+GET         /unsecured                         controllers.auth.UnsecuredResourceController.index
+
+POST        /signUp                            controllers.auth.AuthController.signUp
+
+POST        /signIn                            controllers.auth.AuthController.signIn
+
+# Post Endpoints mapped one for all (redirected by Router)
+->          /v1/posts                          controllers.post.PostRouter
+
+# Routing to external posts endpoints
+GET          /v1/external/posts                controllers.post.PostController.getAllExternal
+POST         /v1/external/posts                controllers.post.PostController.createExternal
+
+# Post Endpoints mapped one-by-one
+# GET        /v1/posts                         controllers.post.PostController.getAll
+# GET        /v1/posts/:id                     controllers.post.PostController.getById(id: Long)
+# POST       /v1/posts                         controllers.post.PostController.create
+# PUT        /v1/posts/:id                     controllers.post.PostController.update(id: Long)
+# DELETE     /v1/posts/:id                     controllers.post.PostController.delete(id: Long)
+
+
+# Map static resources from the /public folder to the /assets URL path
+#GET         /assets/*file                     controllers.Assets.versioned(file)
+#->          /webjars                          webjars.Routes

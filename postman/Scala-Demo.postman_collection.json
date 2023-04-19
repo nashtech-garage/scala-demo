@@ -1,0 +1,315 @@
+{
+	"info": {
+		"_postman_id": "c39ff21e-ee1c-405a-90d6-5424454ba596",
+		"name": "Scala-Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23733634"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/signUp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Contributor\",\n    \"email\": \"contributor@nashtechglobal.com\",\n    \"role\": \"Contributor\",\n    \"lastName\": \"Test\",\n    \"password\": \"VangDo123@\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/signUp",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"signUp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/unsecured",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/unsecured",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"unsecured"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/signIn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"vangdov@nashtechglobal.com\",\n    \"password\": \"VangDo123@\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/signIn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"signIn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/v1/posts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Auth",
+						"value": "{{X-Auth}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/v1/posts/1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Auth",
+						"value": "{{X-Auth}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/posts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/v1/posts",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth",
+						"value": "{{X-Auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"author\": 2,\n    \"title\": \"User's Post 2\",\n    \"content\": \"User's Post 2 Content\",\n    \"description\": \"User's Post 2 description\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/v1/posts/1",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Auth",
+						"value": "{{X-Auth}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/posts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/v1/posts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Auth",
+						"value": "{{X-Auth}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/external/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"external",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://vang-scala-demo.free.beeceptor.com/posts",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "username",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://vang-scala-demo.free.beeceptor.com/posts",
+					"protocol": "https",
+					"host": [
+						"vang-scala-demo",
+						"free",
+						"beeceptor",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/v1/external/posts",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth",
+						"value": "{{X-Auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 109,\n    \"author\": 999,\n    \"title\": \"External Post 2\",\n    \"content\": \"External Post 2 Content\",\n    \"description\": \"External Post 2 description\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/external/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"external",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "X-Auth",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxLUNCNnBnQVRBZFwvUmR6XC82Q0tNanpTekwySmVqSVEySW1lTHNHeHRiZUI3MkxNZ0xyZndJem9RQ3VaQ3EzeW9va2ZrNmdzY0xHdkhITzBXSUJOV1ZyNHpzSTlIck9rZlROaXdqOVdRdHhPbFdPQkZ6TTlUYmUiLCJpc3MiOiJTY2FsYURlbW8iLCJleHAiOjE2ODA0NTM1NTQsImlhdCI6MTY4MDQ0Mjc1NCwianRpIjoiNzg0MWViMWQyNTkwOGFkOWUxOTUyMzIwMDQyYWVkODQzZmUyNTA2ZDYyOWJjYWM2ZWY2OWExMjkyMTAxMmUzM2I1ZGVjNzhjMjBkOTZkYzAzNWVkNWY5OTQ2NTE4OTk0OGU3MjFjYmQ0YjUzNjcyNmQ5NzU4NjJmOTkxZGVlNmFjMTdhMGQwYzhlZTQ3NTRhYjIxNTFlNjQyNDQ0YmUxY2ZjNTUzMTY4ZDE0MzJjOWY0ZDE4MzcwMDVmZTAyMDU5NTAxM2FiNWVmMjE3MDliMzA4NDNlOWEzNWVjNzExZWRjODBjZjI0Mzk0ZjVhMDVkOWIyZGQ4MTNkYTNmMTNmMSJ9.ELl6vjWJPsKe3OD-TNRcK_FBIqpJUtt38EiWPrxmATA"
+		}
+	]
+}
